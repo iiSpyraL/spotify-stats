@@ -69,7 +69,7 @@ function getAccessToken(clientId: string, code: string) {
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");
   params.append("code", code);
-  params.append("redirect_uri", "http://localhost:5173/callback");
+  params.append("redirect_uri", "https://iispyral.github.io/spotify-stats/callback");
   params.append("code_verifier", verifier!);
 
   const { data } = useQuery({
@@ -98,7 +98,7 @@ async function redirectToAuthCodeFlow(clientId: string) {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("response_type", "code");
-  params.append("redirect_uri", "http://localhost:5173/callback");
+  params.append("redirect_uri", "https://iispyral.github.io/spotify-stats/callback");
   params.append(
     "scope",
     "user-read-private user-read-email user-top-read user-library-read"
