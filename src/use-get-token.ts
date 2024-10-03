@@ -25,8 +25,6 @@ const getTokenWithExpiry = () => {
   const item = JSON.parse(itemString);
   const now = new Date();
 
-  console.log(now.getTime() > item.expiry);
-
   if (now.getTime() > item.expiry) {
     localStorage.removeItem("accessToken");
     return null;
@@ -37,10 +35,6 @@ const getTokenWithExpiry = () => {
 
 export const useGetToken = () => {
   const tokenFromStorage = getTokenWithExpiry();
-  console.log(tokenFromStorage);
-  // const thereIsAnAccessToken =
-  //   !!localStorage.getItem("accessToken") &&
-  //   localStorage.getItem("accessToken") !== "undefined";
 
   if (!tokenFromStorage && !code) {
     redirectToAuthCodeFlow(clientId);
@@ -48,7 +42,6 @@ export const useGetToken = () => {
 
   if (!tokenFromStorage && code) {
     const accessToken = getAccessToken(clientId, code);
-    console.log(accessToken);
 
     // localStorage.setItem("accessToken", accessToken);
     params.delete("code");
@@ -58,7 +51,7 @@ export const useGetToken = () => {
 
   // const tokenFromStorage2 = getTokenWithExpiry();
   return {
-    ready: getTokenWithExpiry(),
+    token: getTokenWithExpiry(),
   };
 };
 
@@ -101,10 +94,7 @@ async function redirectToAuthCodeFlow(clientId: string) {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("response_type", "code");
-  params.append(
-    "redirect_uri",
-    "https://iispyral.github.io/spotify-stats/callback"
-  );
+  params.append("redirect_uri", "http://localhost:5173/callback");
   params.append(
     "scope",
     "user-read-private user-read-email user-top-read user-library-read"

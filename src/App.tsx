@@ -4,11 +4,11 @@ import { Home } from "./pages/home";
 import { useGetToken } from "./use-get-token";
 
 function App() {
-  const { ready } = useGetToken();
+  const { token } = useGetToken();
 
   return (
     <Wrapper>
-      {ready ? <Home accessToken={ready} /> : <div>...Loading</div>}
+      {token ? <Home accessToken={token} /> : <div>...Loading</div>}
     </Wrapper>
   );
 }
@@ -19,4 +19,5 @@ const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  background: #ffbc4b;
 `;

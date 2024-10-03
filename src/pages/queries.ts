@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useGetToken } from "../use-get-token";
 
 export const fetchName = (token: string) => {
   const { data, isLoading } = useQuery<UserProfile>({
@@ -79,6 +80,32 @@ const getTopItems = ({
   };
 };
 
+export const useGetTopTracks = ({
+  range,
+  limit,
+  offset = 0,
+}: {
+  range: "short_term" | "medium_term" | "long_term";
+  limit: number;
+  offset?: number;
+}) => {
+  const { token } = useGetToken();
+  const { data, isLoading } = useQuery<TracksResult>({
+    queryKey: [`tracks=${range}+${limit}+${offset}`],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://api.spotify.com/v1/me/top/tracks?time_range=${range}&limit=${limit}&offset=${offset}`,
+        { method: "GET", headers: { Authorization: `Bearer ${token}` } }
+      );
+      return await response.json();
+    },
+  });
+
+  return {
+    tracks: data?.items,
+    tracksLoading: isLoading,
+  };
+};
 export const getTopTracks = ({
   token,
   range,

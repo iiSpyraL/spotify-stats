@@ -1,29 +1,12 @@
 import styled from "styled-components";
 import { fetchName, getTopArtists, getTopTracks } from "./queries";
-
-import Recommendations from "./recommendations";
+// import Recommendations from "./recommendations";
 import Header from "./header";
-
-const FavouriteSong = ({ song }: { song: any }) => {
-  return (
-    <SongWrapper>
-      <span>Your favourite song right now is:</span>
-      <span>
-        <Green>{song.items[0].name}</Green> by{" "}
-        <Green>{song.items[0].artists[0].name}</Green>.
-      </span>
-    </SongWrapper>
-  );
-};
+import TopSongs from "./TopSongs";
+import { FavouriteSong } from "./favourite-song";
 
 export const Home = ({ accessToken }: { accessToken: string }) => {
   const { profile } = fetchName(accessToken);
-  const { topItems: topTrack } = getTopTracks({
-    token: accessToken,
-    range: "short_term",
-    limit: 1,
-    queryKey: "topTrack",
-  });
 
   const { topItems: topFiveTracksThisYear, topItemsLoading: topTracksLoading } =
     getTopTracks({
@@ -63,39 +46,35 @@ export const Home = ({ accessToken }: { accessToken: string }) => {
       <HeaderWrapper>
         <Header displayName={profile.display_name} />
       </HeaderWrapper>
+
       <ContentWrapper>
-        <Content>
-          <FavouriteSong song={topTrack} />
-          <Recommendations
-            accessToken={accessToken}
-            artists={artists.toString().split(",").join("%2C")}
-            tracks={tracks.toString().split(",").join("%2C")}
-          />
-        </Content>
+        {/* <Content> */}
+        <FavouriteSong />
+        <TopSongs />
+        {/* <Recommendations
+          accessToken={accessToken}
+          artists={artists.toString().split(",").join("%2C")}
+          tracks={tracks.toString().split(",").join("%2C")}
+        /> */}
+        {/* </Content> */}
       </ContentWrapper>
     </Wrapper>
   );
 };
 
-const SongWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-`;
-
 const Content = styled.div`
-  padding: 2rem;
-  height: 100%;
-  width: calc(100% - 4rem);
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // padding: 2rem;
+  // height: 100%;
+  // width: calc(100% - 4rem);
+  // gap: 5rem;
 `;
 const Wrapper = styled.div`
   height: 100%;
   width: 100%;
-`;
-
-const Green = styled.span`
-  color: #1ed760;
-  font-weight: 600;
+  overflow-y: scroll;
 `;
 
 const HeaderWrapper = styled.div`
@@ -103,9 +82,9 @@ const HeaderWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  height: calc(100% - 4rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 10px;
+  justify-items: center;
+  padding: 1rem;
 `;

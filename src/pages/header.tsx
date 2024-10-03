@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { SpotifyDark } from "../assets/icons";
 
 const Header = ({ displayName }: { displayName: string }) => {
   const onLogout = () => {
@@ -8,7 +9,10 @@ const Header = ({ displayName }: { displayName: string }) => {
 
   return (
     <HeaderWrapper>
-      <WelcomeMessage>Welcome, {displayName}</WelcomeMessage>
+      <WelcomeMessage>
+        <SpotifyDark />
+        Hi, {displayName}
+      </WelcomeMessage>
       <LogoutWrapper>
         <Logout onClick={onLogout}>Logout</Logout>
       </LogoutWrapper>
@@ -23,18 +27,21 @@ const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #1ed760;
   color: #121212;
-  font-weight: 600;
-  padding: 0 1rem;
-  height: 100%;
+  font-weight: 700;
+  padding: 2rem 1rem;
 `;
 
-const WelcomeMessage = styled.div``;
+const WelcomeMessage = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
 
 const LogoutWrapper = styled.div``;
 
 const Logout = styled.button`
-  background: #121212;
-  color: #ffffff;
+  background: transparent;
+  color: #171313;
+  font-weight: 700;
 `;

@@ -34,7 +34,7 @@ const Recommendations = ({
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 70%;
+  width: 100%;
 `;
 
 const LoadingWrapper = styled.div`
