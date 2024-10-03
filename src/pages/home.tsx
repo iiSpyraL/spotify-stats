@@ -33,13 +33,13 @@ export const Home = ({ accessToken }: { accessToken: string }) => {
 
   if (!profile || loading || noData) return <div>...loading things</div>;
 
-  const artists = topFiveArtistsThisYear.items.map(
-    (artist: { id: any }) => artist.id
-  );
+  // const artists = topFiveArtistsThisYear.items.map(
+  //   (artist: { id: any }) => artist.id
+  // );
 
-  const tracks = topFiveTracksThisYear.items.map(
-    (track: { id: any }) => track.id
-  );
+  // const tracks = topFiveTracksThisYear.items.map(
+  //   (track: { id: any }) => track.id
+  // );
 
   return (
     <Wrapper>
@@ -62,15 +62,6 @@ export const Home = ({ accessToken }: { accessToken: string }) => {
   );
 };
 
-const Content = styled.div`
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // padding: 2rem;
-  // height: 100%;
-  // width: calc(100% - 4rem);
-  // gap: 5rem;
-`;
 const Wrapper = styled.div`
   height: 100%;
   width: 100%;
