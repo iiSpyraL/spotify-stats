@@ -1,12 +1,28 @@
 import styled from "styled-components";
 import { fetchName, getTopArtists, getTopTracks } from "./queries";
-// import Recommendations from "./recommendations";
 import Header from "./header";
-import TopSongs from "./TopSongs";
-import { FavouriteSong } from "./favourite-song";
+import TopSongs from "./top-songs";
+import { WelcomeMessage } from "./welcome-message";
+import { useState } from "react";
+import { TopArtists } from "./top-artists";
 
 export const Home = ({ accessToken }: { accessToken: string }) => {
   const { profile } = fetchName(accessToken);
+
+  const [backgroundColor, setBackgroundColor] = useState("#ffd0d5");
+
+  window.addEventListener("scroll", () => {
+    switch (true) {
+      case window.scrollY <= 200:
+        setBackgroundColor("#ffd0d5");
+        break;
+      case 200 < window.scrollY && window.scrollY <= 600:
+        setBackgroundColor("#a4c9d8");
+        break;
+      default:
+        setBackgroundColor("#ffbc4b");
+    }
+  });
 
   const { topItems: topFiveTracksThisYear, topItemsLoading: topTracksLoading } =
     getTopTracks({
@@ -33,39 +49,25 @@ export const Home = ({ accessToken }: { accessToken: string }) => {
 
   if (!profile || loading || noData) return <div>...loading things</div>;
 
-  // const artists = topFiveArtistsThisYear.items.map(
-  //   (artist: { id: any }) => artist.id
-  // );
-
-  // const tracks = topFiveTracksThisYear.items.map(
-  //   (track: { id: any }) => track.id
-  // );
-
   return (
-    <Wrapper>
+    <Wrapper background={backgroundColor}>
       <HeaderWrapper>
         <Header displayName={profile.display_name} />
       </HeaderWrapper>
 
       <ContentWrapper>
-        {/* <Content> */}
-        <FavouriteSong />
+        <WelcomeMessage />
         <TopSongs />
-        {/* <Recommendations
-          accessToken={accessToken}
-          artists={artists.toString().split(",").join("%2C")}
-          tracks={tracks.toString().split(",").join("%2C")}
-        /> */}
-        {/* </Content> */}
+        <TopArtists />
       </ContentWrapper>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
-  height: 100%;
+const Wrapper = styled.div<{ background: string }>`
   width: 100%;
-  overflow-y: scroll;
+  background: ${({ background }) => background};
+  transition: background 500ms ease-out;
 `;
 
 const HeaderWrapper = styled.div`
@@ -74,7 +76,7 @@ const HeaderWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 10px;
   justify-items: center;
   padding: 1rem;

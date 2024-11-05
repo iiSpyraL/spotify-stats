@@ -7,8 +7,7 @@ export const FavouriteSong = () => {
     limit: 1,
   });
 
-  if (tracksLoading || !tracks)
-    return <SongWrapper>Loading track...</SongWrapper>;
+  if (tracksLoading || !tracks) return <SongWrapper>Loading track...</SongWrapper>;
 
   return (
     <SongWrapper>

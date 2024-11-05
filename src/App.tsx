@@ -7,7 +7,7 @@ function App() {
   const { token } = useGetToken();
 
   return (
-    <Wrapper>
+    <Wrapper className="app-wrapper">
       {token ? <Home accessToken={token} /> : <div>...Loading</div>}
     </Wrapper>
   );
@@ -18,6 +18,4 @@ export default App;
 const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
-  background: #ffbc4b;
 `;

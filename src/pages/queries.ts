@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useGetToken } from "../use-get-token";
 
+const ONE_DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
+
 export const fetchName = (token: string) => {
   const { data, isLoading } = useQuery<UserProfile>({
     queryKey: ["profileData"],
@@ -99,6 +101,7 @@ export const useGetTopTracks = ({
       );
       return await response.json();
     },
+    staleTime: ONE_DAY_IN_MILLISECONDS,
   });
 
   return {
@@ -106,6 +109,35 @@ export const useGetTopTracks = ({
     tracksLoading: isLoading,
   };
 };
+
+export const useGetTopArtists = ({
+  range,
+  limit,
+  offset = 0,
+}: {
+  range: "short_term" | "medium_term" | "long_term";
+  limit: number;
+  offset?: number;
+}) => {
+  const { token } = useGetToken();
+  const { data, isLoading } = useQuery<ArtistsResult>({
+    queryKey: [`artists=${range}+${limit}+${offset}`],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://api.spotify.com/v1/me/top/artists?time_range=${range}&limit=${limit}&offset=${offset}`,
+        { method: "GET", headers: { Authorization: `Bearer ${token}` } }
+      );
+      return await response.json();
+    },
+    staleTime: ONE_DAY_IN_MILLISECONDS,
+  });
+
+  return {
+    artists: data?.items,
+    artistsLoading: isLoading,
+  };
+};
+
 export const getTopTracks = ({
   token,
   range,

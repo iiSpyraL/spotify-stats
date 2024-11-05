@@ -61,6 +61,10 @@ interface TracksResult {
   items: [Tracks];
 }
 
+interface ArtistsResult {
+  items: [Artist];
+}
+
 interface Tracks {
   album: {
     album_type: string;
@@ -114,9 +118,25 @@ interface Artist {
   external_urls: {
     spotify: string;
   };
+  followers: {
+    total: number;
+  };
+  genres: [string];
   href: string;
   id: string;
+  images: [Image];
   name: string;
   type: string;
   uri: string;
 }
+
+enum Ranges {
+  short = "short_term",
+  medium = "medium_term",
+  long = "long_term",
+}
+
+type FilterOptions = {
+  displayName: string;
+  value: Ranges;
+};
