@@ -29,7 +29,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   color: #121212;
   font-weight: 700;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem 1rem;
 `;
 
 const WelcomeMessage = styled.div`
@@ -42,6 +42,6 @@ const LogoutWrapper = styled.div``;
 
 const Logout = styled.button`
   background: transparent;
-  color: #171313;
+  color: #2c2c2c;
   font-weight: 700;
 `;

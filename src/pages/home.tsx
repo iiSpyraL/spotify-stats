@@ -51,10 +51,7 @@ export const Home = ({ accessToken }: { accessToken: string }) => {
 
   return (
     <Wrapper background={backgroundColor}>
-      <HeaderWrapper>
-        <Header displayName={profile.display_name} />
-      </HeaderWrapper>
-
+      <Header displayName={profile.display_name} />
       <ContentWrapper>
         <WelcomeMessage />
         <TopSongs />
@@ -70,14 +67,9 @@ const Wrapper = styled.div<{ background: string }>`
   transition: background 500ms ease-out;
 `;
 
-const HeaderWrapper = styled.div`
-  height: 4rem;
-`;
-
 const ContentWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-gap: 10px;
   justify-items: center;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem;
 `;

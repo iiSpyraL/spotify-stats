@@ -79,7 +79,7 @@ const ToggleOption = styled.div<{ selected: boolean }>`
   ${({ selected }) =>
     selected &&
     css`
-      color: #171313;
+      color: #2c2c2c;
       transition: color 200ms ease;
     `}
 `;

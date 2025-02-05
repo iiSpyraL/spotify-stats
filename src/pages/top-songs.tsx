@@ -96,7 +96,7 @@ const Heading = styled.span`
   font-size: 2rem;
   text-align: start;
   font-weight: 600;
-  color: #171313;
+  color: #2c2c2c;
   width: 85%;
 `;
 
@@ -130,7 +130,7 @@ const Items = styled.div`
   align-items: center;
   justify-items: start;
   margin: 0.5rem 0;
-  color: #171313;
+  color: #2c2c2c;
 `;
 
 const AlbumCover = styled.img`

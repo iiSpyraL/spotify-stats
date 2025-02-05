@@ -24,7 +24,7 @@ const SongWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  color: #171313;
+  color: #2c2c2c;
 `;
 
 const Green = styled.span`
